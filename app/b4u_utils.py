@@ -155,15 +155,21 @@ def export_record_with_labels(project, record_id):
         raw_or_label_headers='label'
     )
 
-    result = {
-        "record_id": record_id,
-        "total_instances": len(records),
-        "instances": []
-    }
-
+    # result = {
+    #     "record_id": record_id,
+    #     "total_instances": len(records),
+    #     "instances": []
+    # }
+    data = []
     for record in records:
+        instrument_dict = {}
+
         instrument = record.get('redcap_repeat_instrument', 'Main Record')
         instance = record.get('redcap_repeat_instance')
+
+        instrument_dict["Record ID"] = record_id
+        instrument_dict["Repeat Instrument"] = instrument
+        instrument_dict["Repeat Instance"] = instance
 
         fields = []
         for field_name, value in record.items():
@@ -185,14 +191,17 @@ def export_record_with_labels(project, record_id):
                 "value": value
             })
 
-        if fields:
-            result["instances"].append({
-                "instrument": instrument,
-                "instance": instance,
-                "fields": fields
-            })
+            instrument_dict[field_labels.get(field_name, field_name)] = value
+        data.append(instrument_dict)
 
-    return result
+        # if fields:
+        #     result["instances"].append({
+        #         "instrument": instrument,
+        #         "instance": instance,
+        #         "fields": fields
+        #     })
+
+    return data
 
 
     
