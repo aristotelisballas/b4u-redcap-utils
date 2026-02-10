@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ./app
+    container_name: redcap-utils
+    env_file:
+      - .env
+    labels:
+      io.portainer.accesscontrol.teams: HUA
+    ports:
+      - "9994:9994"
