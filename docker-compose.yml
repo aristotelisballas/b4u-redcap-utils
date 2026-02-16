@@ -5,6 +5,7 @@ services:
     build:
       context: ./app
     container_name: redcap-utils
+    restart: unless-stopped
     env_file:
       - .env
     labels:
