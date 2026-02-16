@@ -10,4 +10,4 @@ services:
     labels:
       io.portainer.accesscontrol.teams: HUA
     ports:
-      - "9994:9994"
+      - "9993:9993"
